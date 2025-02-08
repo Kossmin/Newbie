@@ -2,7 +2,7 @@
 
 namespace ProductService.Models
 {
-    internal class ProductContext : DbContext
+    public class ProductContext : DbContext
     {
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
@@ -10,7 +10,9 @@ namespace ProductService.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=ProductDatbase;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False");
+            string connectionString = "Server=localhost,3306;Database=ProductDatabase;user=root;Password=;TrustServerCertificate=True";
+            optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
+            
         }
     }
 }

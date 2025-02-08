@@ -8,12 +8,12 @@ namespace TestCallMessage
     {
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            while (stoppingToken.IsCancellationRequested) 
-            {
+            // while (!stoppingToken.IsCancellationRequested) 
+            // {
                 await bus.Publish(new GetProductRequest(), stoppingToken);
-
-                await Task.Delay(1000, stoppingToken);
-            }
+                
+                // await Task.Delay(1000, stoppingToken);
+            // }
         }
 
     }
