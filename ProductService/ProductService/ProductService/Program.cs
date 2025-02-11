@@ -21,10 +21,13 @@ var builder = new HostBuilder()
 
         // Register Handler
         services.AddScoped<GetProductsHandler>();
+        services.AddScoped<GetProductByIdHandler>();
         
         services.AddMassTransit(x =>
         {
             x.AddConsumer<GetProductsRequestConsumer>();
+            x.AddConsumer<GetProductByIdRequestConsumer>();
+
             x.UsingRabbitMq((context, cfg) =>
             {
                 cfg.Host("localhost", "/", h =>

@@ -15,8 +15,6 @@ namespace ProductService.Consumers
         }
         public async Task Consume(ConsumeContext<GetProductRequest> context)
         {
-            var fakeCategories = FakeCategoryGenerator.GenerateCategories(5);
-            var fakeProducts = FakeProductGenerator.GenerateProducts(10);
             var getHandle = await _productsHandler.Handle();
 
             foreach (var product in getHandle)

@@ -15,7 +15,7 @@ public class GetProductByIdHandler
 
     public async Task<Product> GetProductByIdAsync(GetProductByIdRequest request)
     {
-        int productId = request.ProductId;
+        var productId = request.ProductId;
         return await _productRepository.GetProductById(productId);
     }
 }

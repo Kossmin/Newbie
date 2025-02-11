@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using ProductService.DataGenerators;
 
 namespace ProductService.Models
 {
@@ -8,12 +9,19 @@ namespace ProductService.Models
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            string connectionString = configuration.GetConnectionString("DefaultConnection");
+            var connectionString = configuration.GetConnectionString("DefaultConnection");
             optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
+            base.OnConfiguring(optionsBuilder);
         }
         
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
         
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Category>().HasData(FakeCategoryGenerator.GenerateCategories(5));
+            modelBuilder.Entity<Product>().HasData(FakeProductGenerator.GenerateProducts(10));
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

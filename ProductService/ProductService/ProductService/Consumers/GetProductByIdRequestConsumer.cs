@@ -15,6 +15,7 @@ public class GetProductByIdRequestConsumer : IConsumer<GetProductByIdRequest>
     
     public async Task Consume(ConsumeContext<GetProductByIdRequest> context)
     {
-        Console.WriteLine(await _getProductByIdHandler.GetProductByIdAsync(context.Message));
+        var product = await _getProductByIdHandler.GetProductByIdAsync(context.Message);
+        Console.WriteLine(product.ProductName);
     }
 }
