@@ -12,10 +12,15 @@ public class ProductRepository : IProductRepository
         _context = context;
     }
     
-    
     public async Task<IEnumerable<Product>> GetProducts()
     {
         var products = _context.Products.ToListAsync();
         return await products;
+    }
+
+    public async Task<Product> GetProductById(int id)
+    {
+        var product = await _context.Products.FindAsync(id);
+        return product;
     }
 }
