@@ -8,9 +8,9 @@ public class GetProductsHandler
 {
     readonly IProductRepository _productRepository;
 
-    public GetProductsHandler()
+    public GetProductsHandler(IProductRepository productRepository)
     {
-        _productRepository = new ProductRepository(new ProductContext());
+        _productRepository = productRepository;
     }
 
     public async Task<IEnumerable<Product>> Handle()

@@ -8,9 +8,9 @@ namespace ProductService.Consumers
     {
         private GetProductsHandler _productsHandler;
 
-        public GetProductsRequestConsumer()
+        public GetProductsRequestConsumer(GetProductsHandler productsHandler)
         {
-            _productsHandler = new GetProductsHandler();
+            _productsHandler = productsHandler;
         }
         public async Task Consume(ConsumeContext<GetProductRequest> context)
         {

@@ -8,9 +8,9 @@ public class GetProductByIdRequestConsumer : IConsumer<GetProductByIdRequest>
 {
     private GetProductByIdHandler _getProductByIdHandler;
 
-    public GetProductByIdRequestConsumer()
+    public GetProductByIdRequestConsumer(GetProductByIdHandler getProductByIdHandler)
     {
-        _getProductByIdHandler = new GetProductByIdHandler();
+        _getProductByIdHandler = getProductByIdHandler;
     }
     
     public async Task Consume(ConsumeContext<GetProductByIdRequest> context)

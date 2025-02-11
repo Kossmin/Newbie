@@ -8,9 +8,9 @@ public class GetProductByIdHandler
 {
     readonly IProductRepository _productRepository;
     
-    public GetProductByIdHandler()
+    public GetProductByIdHandler(IProductRepository productRepository)
     {
-        _productRepository = new ProductRepository(new ProductContext());
+        _productRepository = productRepository;
     }
 
     public async Task<Product> GetProductByIdAsync(GetProductByIdRequest request)

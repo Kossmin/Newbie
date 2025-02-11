@@ -1,18 +1,18 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace ProductService.Models
 {
-    public class ProductContext : DbContext
+    public class ProductContext(DbContextOptions<ProductContext> options, IConfiguration configuration)
+        : DbContext(options)
     {
-        public DbSet<Product> Products { get; set; }
-        public DbSet<Category> Categories { get; set; }
-
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            string connectionString = "Server=localhost,3306;Database=ProductDatabase;user=root;Password=;TrustServerCertificate=True";
+            string connectionString = configuration.GetConnectionString("DefaultConnection");
             optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
-            
         }
+        
+        public DbSet<Product> Products { get; set; }
+        public DbSet<Category> Categories { get; set; }
     }
 }
