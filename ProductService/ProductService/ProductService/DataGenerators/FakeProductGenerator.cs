@@ -12,7 +12,7 @@ public class FakeProductGenerator
             .RuleFor(p => p.CategoryId, f => f.Random.Int(1, 5)) // Assume 5 categories
             .RuleFor(p => p.ProductName, f => f.Commerce.ProductName())
             .RuleFor(p => p.ShortDesc, f => f.Lorem.Sentence(10))
-            .RuleFor(p => p.Desciption, f => f.Lorem.Paragraph())
+            .RuleFor(p => p.Description, f => f.Lorem.Paragraph())
             .RuleFor(p => p.Price, f => f.Random.Decimal(10, 500))
             .RuleFor(p => p.ThumbnailImageUrl, f => f.Image.PicsumUrl())
             .RuleFor(p => p.DateCreated, f => f.Date.Past(2))
