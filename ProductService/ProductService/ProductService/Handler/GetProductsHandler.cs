@@ -15,6 +15,12 @@ public class GetProductsHandler
 
     public async Task<IEnumerable<Product>> Handle()
     {
-        return await _productRepository.GetProducts();
+        var products =  await _productRepository.GetProducts();
+        
+        if (products == null)
+        {
+            throw new KeyNotFoundException("List of products is empty");
+        }
+        return products;
     }
 }

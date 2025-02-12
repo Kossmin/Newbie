@@ -16,6 +16,14 @@ public class GetProductByIdHandler
     public async Task<Product> GetProductByIdAsync(GetProductByIdRequest request)
     {
         var productId = request.ProductId;
-        return await _productRepository.GetProductById(productId);
+        
+        var product = await _productRepository.GetProductById(productId);
+        
+        if (product == null)
+        {
+            throw new KeyNotFoundException("Product not found");
+        }
+        
+        return product;
     }
 }
