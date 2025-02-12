@@ -22,11 +22,17 @@ var builder = new HostBuilder()
         // Register Handler
         services.AddScoped<GetProductsHandler>();
         services.AddScoped<GetProductByIdHandler>();
+        services.AddScoped<CreateProductHandler>();
+        services.AddScoped<UpdateProductHandler>();
+        services.AddScoped<DeleteProductHandler>();
         
         services.AddMassTransit(x =>
         {
             x.AddConsumer<GetProductsRequestConsumer>();
             x.AddConsumer<GetProductByIdRequestConsumer>();
+            x.AddConsumer<UpdateProductRequestConsumer>();
+            x.AddConsumer<CreateProductRequestConsumer>();
+            x.AddConsumer<DeleteProductRequestConsumer>();
 
             x.UsingRabbitMq((context, cfg) =>
             {
