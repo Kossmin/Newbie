@@ -1,7 +1,10 @@
-﻿namespace ProductService.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace ProductService.Models
 {
     public class Product
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ProductId { get; set; }
 
         public int? CategoryId { get; set; }
@@ -20,7 +23,7 @@
 
         //public string? Video { get; set; }
 
-        public DateTime? DateCreated { get; set; }
+        public DateTime? DateCreated { get; set; } = DateTime.UtcNow;
 
         public DateTime? DateModified { get; set; }
 
@@ -37,7 +40,8 @@
         //public string? MetaKey { get; set; }
 
         public int? UnitsInStock { get; set; }
-
+        
+        [ForeignKey(nameof(CategoryId))]
         public virtual Category? Cat { get; set; }
     }
 }

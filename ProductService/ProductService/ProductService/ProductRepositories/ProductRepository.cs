@@ -34,6 +34,11 @@ public class ProductRepository : IProductRepository
         await _context.SaveChangesAsync();
         return product;
     }
+    
+    public async Task<bool> CategoryExists(int categoryId)
+    {
+        return await _context.Categories.AnyAsync(c => c.Id == categoryId);
+    }
 
     public async Task<Product> UpdateProduct(Product product)
     {

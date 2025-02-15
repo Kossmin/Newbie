@@ -1,5 +1,6 @@
 ﻿using MassTransit;
 using MessagingAPI;
+using MessagingAPI.Category;
 using Microsoft.Extensions.Hosting;
 
 namespace TestCallMessage
@@ -15,21 +16,29 @@ namespace TestCallMessage
                 //     ProductId = 8
                 // }, stoppingToken);
                 
-                // await bus.Publish(new GetProductRequest(), stoppingToken);
+                await bus.Publish(new GetProductRequest(), stoppingToken);
+
+                // try
+                // {
+                //     await bus.Publish(new CreateProductRequest()
+                //     {
+                //         CategoryId = 3,
+                //         Active = true,
+                //         UnitsInStock = 10,
+                //         ProductName = "Test",
+                //         Description = "Test",
+                //         ShortDesc = "Test",
+                //         DateCreated = DateTime.Now,
+                //         DateModified = DateTime.Now,
+                //         Price = 10,
+                //         ThumbnailImageUrl = "https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/i/p/iphone-16-pro-max.png"
+                //     }, stoppingToken);
+                // }
+                // catch (Exception e)
+                // {
+                //     Console.WriteLine($"Error: {e.Message}");
+                // }
                 
-                await bus.Publish(new CreateProductRequest()
-                {
-                    CategoryId = 3,
-                    Active = true,
-                    UnitsInStock = 10,
-                    ProductName = "Test",
-                    Description = "Test",
-                    ShortDesc = "Test",
-                    DateCreated = DateTime.Now,
-                    DateModified = DateTime.Now,
-                    Price = 10,
-                    ThumbnailImageUrl = "https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/i/p/iphone-16-pro-max.png"
-                }, stoppingToken);
                 
                 // await bus.Publish(new UpdateProductRequest()
                 // {
@@ -45,6 +54,8 @@ namespace TestCallMessage
                 
                 // await Task.Delay(1000, stoppingToken);
             // }
+
+            await bus.Publish(new GetCategoriesRequest());
         }
 
     }

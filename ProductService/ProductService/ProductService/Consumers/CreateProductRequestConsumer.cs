@@ -11,6 +11,6 @@ public class CreateProductRequestConsumer(CreateProductHandler createProductHand
     {
         var createProduct = await createProductHandler.CreateProductAsync(context.Message);
         
-        Console.WriteLine(createProduct);
+        Console.WriteLine(createProduct.ProductName);
     }
 }

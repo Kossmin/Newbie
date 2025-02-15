@@ -19,6 +19,11 @@ public class CreateProductHandler(IProductRepository productRepository)
         }
         
         // Check the Cat ID exist ? How ? 
+        var categoryExists = await productRepository.CategoryExists(request.CategoryId);
+        if (!categoryExists)
+        {
+            throw new ArgumentException($"Category with ID {request.CategoryId} does not exist.");
+        }
         
         var product = new Product
         {

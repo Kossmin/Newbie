@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GettingStarted", "..\Templa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MessagingAPI", "..\..\MessagingAPI\ClassLibrary1\MessagingAPI.csproj", "{55CF5011-17B7-4415-B6E3-7D6E312B4526}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductServicesTest", "ProductServicesTest\ProductServicesTest.csproj", "{0D05F910-279B-4E99-B4B4-DB3C491D77FB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{55CF5011-17B7-4415-B6E3-7D6E312B4526}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{55CF5011-17B7-4415-B6E3-7D6E312B4526}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{55CF5011-17B7-4415-B6E3-7D6E312B4526}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D05F910-279B-4E99-B4B4-DB3C491D77FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D05F910-279B-4E99-B4B4-DB3C491D77FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D05F910-279B-4E99-B4B4-DB3C491D77FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D05F910-279B-4E99-B4B4-DB3C491D77FB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

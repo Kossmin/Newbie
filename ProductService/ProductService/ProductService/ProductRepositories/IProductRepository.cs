@@ -13,4 +13,6 @@ public interface IProductRepository
     public Task<Product> UpdateProduct(Product product);
     
     public Task<Product> DeleteProduct(int id);
+    
+    Task<bool> CategoryExists(int categoryId); 
 }
