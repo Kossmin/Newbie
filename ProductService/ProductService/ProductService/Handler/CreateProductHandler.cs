@@ -25,6 +25,13 @@ public class CreateProductHandler(IProductRepository productRepository)
             throw new ArgumentException($"Category with ID {request.CategoryId} does not exist.");
         }
         
+        // Check for duplicate product
+        var productExist = await productRepository.ProductExists(request.ProductName, request.CategoryId);
+        if (productExist)
+        {
+            throw new ArgumentException($"Product with name {request.ProductName} already exists.");
+        }
+        
         var product = new Product
         {
             ProductName = request.ProductName,
