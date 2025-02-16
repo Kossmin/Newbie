@@ -40,6 +40,11 @@ public class ProductRepository : IProductRepository
         return await _context.Categories.AnyAsync(c => c.Id == categoryId);
     }
 
+    public async Task<bool> ProductExists(string productName, int categoryId)
+    {
+        return await _context.Products.AnyAsync(c => c.ProductName == productName && c.CategoryId == categoryId);
+    }
+
     public async Task<Product> UpdateProduct(Product product)
     {
         var existProduct = await _context.Products.FindAsync(product.ProductId);

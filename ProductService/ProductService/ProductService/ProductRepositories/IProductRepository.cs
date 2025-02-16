@@ -15,4 +15,6 @@ public interface IProductRepository
     public Task<Product> DeleteProduct(int id);
     
     Task<bool> CategoryExists(int categoryId); 
+    
+    Task<bool> ProductExists(string productName, int categoryId);
 }
