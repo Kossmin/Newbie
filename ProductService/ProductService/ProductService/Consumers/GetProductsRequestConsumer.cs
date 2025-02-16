@@ -1,6 +1,5 @@
 ﻿using MassTransit;
 using MessagingAPI;
-using ProductService.DataGenerators;
 using ProductService.Handler;
 
 namespace ProductService.Consumers

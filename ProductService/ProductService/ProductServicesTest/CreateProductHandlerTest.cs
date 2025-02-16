@@ -18,19 +18,99 @@ public class CreateProductHandlerTest
     }
 
     [Fact]
-    public async Task CreatesProduct_Return_Product()
+    public async Task CreatesProduct_WithValidData_ShouldReturnTrue()
     {
-        _mockProductRepository.Setup(x => x.CreateProduct(It.IsAny<Product>()));
+        
+        var request = new CreateProductRequest
+        {
+            ProductName = "Laptop",
+            CategoryId = 1,
+            ShortDesc = "Gaming Laptop",
+            Description = "High-end gaming laptop",
+            Price = 1500,
+            ThumbnailImageUrl = "image.jpg",
+            UnitsInStock = 10
+        };
 
+        var createdProduct = new Product
+        {
+            ProductName = request.ProductName,
+            CategoryId = request.CategoryId,
+            ShortDesc = request.ShortDesc,
+            Description = request.Description,
+            Price = request.Price,
+            ThumbnailImageUrl = request.ThumbnailImageUrl,
+            DateCreated = DateTime.UtcNow,
+            Active = true,
+            UnitsInStock = request.UnitsInStock
+        };
+        
+        _mockProductRepository.Setup(x => x.CategoryExists(request.CategoryId)).ReturnsAsync(true);
+        _mockProductRepository.Setup(x => x.CreateProduct(It.IsAny<Product>())).ReturnsAsync(createdProduct);
+        
+        var result = await _createProductHandler.CreateProductAsync(request);
+        
+        Assert.NotNull(result);
+        Assert.Equal(request.ProductName, result.ProductName);
+    }
+
+    [Fact]
+    public async Task CreatesProduct_WithoutProductName_ShouldReturnNull()
+    {
+        var requestCreate = new CreateProductRequest()
+        {
+            CategoryId = 1,
+            ShortDesc = "Gaming Laptop",
+            Description = "High-end gaming laptop",
+            Price = 1500,
+            Active = true
+        };
+
+        _mockProductRepository.Setup(x => x.CategoryExists(1));
+        await Assert.ThrowsAsync<ArgumentException>(() => _createProductHandler.CreateProductAsync(requestCreate));
+    }
+
+    [Fact]
+    public async Task CreateProduct_WithDuplicated_Product()
+    {
         var request = new CreateProductRequest()
         {
-            ProductName = "Test Product",
-            Description = "Test Description",
-            Active = true,
-            Price = 10
+            ProductName = "Laptop",
+            CategoryId = 1,
+            ShortDesc = "Gaming Laptop",
+            Description = "High-end gaming laptop",
+            Price = 1500,
+            ThumbnailImageUrl = "image.jpg",
+            UnitsInStock = 10
         };
-        var result = _createProductHandler.CreateProductAsync(request);
         
-        Assert.Equal(request.ProductName, result.Result.ProductName);
+        _mockProductRepository.Setup(x => x.CategoryExists(request.CategoryId));
+        _mockProductRepository.Setup(x => x.CreateProduct(It.IsAny<Product>()))
+            .ReturnsAsync((Product product) =>
+            {
+                product.ProductName = "LapTop";
+                product.CategoryId = 1;
+                return product;
+            } );
+        
+        await Assert.ThrowsAsync<ArgumentException>(() => _createProductHandler.CreateProductAsync(request));
+    }
+
+    [Fact]
+    public async Task CreateProduct_WithNoCategory_Return_Error()
+    {
+        var request = new CreateProductRequest()
+        {
+            ProductName = "Laptop",
+            ShortDesc = "Gaming Laptop",
+            Description = "High-end gaming laptop",
+            Price = 1500,
+            ThumbnailImageUrl = "image.jpg",
+            UnitsInStock = 10
+        };
+        
+        _mockProductRepository.Setup(x => x.CreateProduct(It.IsAny<Product>())).ThrowsAsync(new ArgumentException("Product not have Category Id."));
+        
+        await Assert.ThrowsAsync<ArgumentException>(() => _createProductHandler.CreateProductAsync(request));
     }
 }

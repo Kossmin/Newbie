@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using ProductService.DataGenerators;
 
 namespace ProductService.Models
 {
