@@ -76,22 +76,13 @@ public class CreateProductHandlerTest
         var request = new CreateProductRequest()
         {
             ProductName = "Laptop",
-            CategoryId = 1,
-            ShortDesc = "Gaming Laptop",
-            Description = "High-end gaming laptop",
-            Price = 1500,
-            ThumbnailImageUrl = "image.jpg",
-            UnitsInStock = 10
+            CategoryId = 1
         };
         
-        _mockProductRepository.Setup(x => x.CategoryExists(request.CategoryId));
-        _mockProductRepository.Setup(x => x.CreateProduct(It.IsAny<Product>()))
-            .ReturnsAsync((Product product) =>
-            {
-                product.ProductName = "LapTop";
-                product.CategoryId = 1;
-                return product;
-            } );
+        _mockProductRepository.Setup(x => x.CategoryExists(request.CategoryId)).ReturnsAsync(true);
+
+        _mockProductRepository.Setup(x => x.ProductExists(request.ProductName, request.CategoryId))
+            .ReturnsAsync(true);
         
         await Assert.ThrowsAsync<ArgumentException>(() => _createProductHandler.CreateProductAsync(request));
     }
