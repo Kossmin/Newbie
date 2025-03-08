@@ -1,6 +1,8 @@
 ﻿using MassTransit;
 using MessagingAPI;
+using MessagingAPI.Product;
 using ProductService.Handler;
+using ProductService.Models;
 
 namespace ProductService.Consumers
 {
@@ -14,13 +16,25 @@ namespace ProductService.Consumers
         }
         public async Task Consume(ConsumeContext<GetProductRequest> context)
         {
-            var getHandle = await _productsHandler.Handle();
+            var products = await _productsHandler.Handle();
 
-            foreach (var product in getHandle)
+            foreach (var product in products)
             {
                 Console.WriteLine(product.ProductName);
             }
-            // return Task.CompletedTask;
+            await context.RespondAsync(MapResponse(products));
+        }
+
+        private GetProductResponse MapResponse(IEnumerable<Product> products)
+        {
+            return new GetProductResponse
+            {
+                Products = products.Select(p => new GetProductListItem
+                {
+                    ProductId = p.ProductId,
+                    ProductName = p.ProductName
+                }).ToList(),
+            };
         }
     }
 }

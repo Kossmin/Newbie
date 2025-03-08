@@ -1,0 +1,30 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model MessagingAPI.Product.GetProductResponse
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <table>
+        <thead>
+            <tr>
+                <td>Id</td>
+                <td>Name</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var i in Model.Products)
+            {
+                <tr>
+                    <td>
+                        @i.ProductId
+                    </td>
+                    <td>
+                        @i.ProductName
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
